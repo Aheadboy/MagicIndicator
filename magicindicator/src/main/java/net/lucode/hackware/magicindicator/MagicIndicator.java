@@ -23,6 +23,7 @@ public class MagicIndicator extends FrameLayout {
         super(context, attrs);
     }
 
+    //region 页面事件
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (mNavigator != null) {
             mNavigator.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -40,6 +41,7 @@ public class MagicIndicator extends FrameLayout {
             mNavigator.onPageScrollStateChanged(state);
         }
     }
+    //endregion
 
     public IPagerNavigator getNavigator() {
         return mNavigator;
@@ -53,7 +55,7 @@ public class MagicIndicator extends FrameLayout {
             mNavigator.onDetachFromMagicIndicator();
         }
         mNavigator = navigator;
-        removeAllViews();
+        removeAllViews();//移除容器中的所有子view
         if (mNavigator instanceof View) {
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             addView((View) mNavigator, lp);
