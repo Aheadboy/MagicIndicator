@@ -58,8 +58,8 @@ public class MagicIndicator extends FrameLayout {
         removeAllViews();//移除容器中的所有子view
         if (mNavigator instanceof View) {
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            addView((View) mNavigator, lp);
-            mNavigator.onAttachToMagicIndicator();
+            addView((View) mNavigator, lp);//添加一个子view
+            mNavigator.onAttachToMagicIndicator();//子view添加成功事件触发。
         }
     }
 }

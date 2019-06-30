@@ -2,6 +2,7 @@ package net.lucode.hackware.magicindicator.buildins.commonnavigator;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.model.PositionData;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * 通用的ViewPager指示器，包含PagerTitle和PagerIndicator
@@ -28,6 +31,7 @@ import java.util.List;
  * Created by hackware on 2016/6/26.
  */
 public class CommonNavigator extends FrameLayout implements IPagerNavigator, NavigatorHelper.OnNavigatorScrollListener {
+    private final String TAG="CommonNavigator";
     private HorizontalScrollView mScrollView;
     private LinearLayout mTitleContainer;
     private LinearLayout mIndicatorContainer;
@@ -211,6 +215,7 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Log.i(TAG, MessageFormat.format("position:{0},positionOffset:{1},positionOffsetPixels:{2}",position,positionOffset,positionOffsetPixels));
         if (mAdapter != null) {
 
             mNavigatorHelper.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -245,6 +250,8 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
 
     @Override
     public void onPageSelected(int position) {
+                Log.i(TAG, MessageFormat.format("onPageSelected:{0}",position));
+
         if (mAdapter != null) {
             mNavigatorHelper.onPageSelected(position);
             if (mIndicator != null) {
@@ -255,6 +262,8 @@ public class CommonNavigator extends FrameLayout implements IPagerNavigator, Nav
 
     @Override
     public void onPageScrollStateChanged(int state) {
+                Log.i(TAG, MessageFormat.format("onPageScrollStateChanged:{0}",state));
+                
         if (mAdapter != null) {
             mNavigatorHelper.onPageScrollStateChanged(state);
             if (mIndicator != null) {

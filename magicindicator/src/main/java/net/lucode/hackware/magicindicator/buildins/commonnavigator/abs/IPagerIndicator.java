@@ -11,6 +11,12 @@ import java.util.List;
  * Created by hackware on 2016/6/26.
  */
 public interface IPagerIndicator {
+    /**
+     * 页面正在滑动
+     * @param position
+     * @param positionOffset
+     * @param positionOffsetPixels
+     */
     void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
     void onPageSelected(int position);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -13,6 +14,7 @@ import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.model.PositionData;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ import java.util.List;
  * Created by hackware on 2016/6/26.
  */
 public class TriangularPagerIndicator extends View implements IPagerIndicator {
+    private final static String TAG = "TriangularPagerIndicato";
     private List<PositionData> mPositionDataList;
     private Paint mPaint;
     private int mLineHeight;
@@ -32,7 +35,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
     private Path mPath = new Path();
     private Interpolator mStartInterpolator = new LinearInterpolator();
-    private float mAnchorX;
+    private float mAnchorX;//Anchor锚//在三角形底边的中心
 
     public TriangularPagerIndicator(Context context) {
         super(context);
@@ -49,13 +52,34 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.e(TAG, MessageFormat.format("onDraw invoke :{0}", ""));
+
         mPaint.setColor(mLineColor);
+
+
+        //region 画底部的线。
         if (mReverse) {
             canvas.drawRect(0, getHeight() - mYOffset - mTriangleHeight, getWidth(), getHeight() - mYOffset - mTriangleHeight + mLineHeight, mPaint);
+            Log.e(TAG, MessageFormat.format("getHeight:{0} px", getHeight()));
+            Log.e(TAG, MessageFormat.format("mYOffset:{0} px", mYOffset));
+            Log.e(TAG, MessageFormat.format("mTriangleHeight:{0} px", mTriangleHeight));
+            Log.e(TAG, MessageFormat.format("top:{0} px", getHeight() - mYOffset - mTriangleHeight));
+            Log.e(TAG, MessageFormat.format("right:{0} px", getWidth()));
+            Log.e(TAG, MessageFormat.format("bottom:{0} px", getHeight() - mYOffset - mTriangleHeight + mLineHeight));
+
         } else {
+            Log.e(TAG, MessageFormat.format("getHeight:{0} px", getHeight()));
+            Log.e(TAG, MessageFormat.format("mYOffset:{0} px", mYOffset));
+            Log.e(TAG, MessageFormat.format("mTriangleHeight:{0} px", mTriangleHeight));
+            Log.e(TAG, MessageFormat.format("top:{0} px", getHeight() - mLineHeight - mYOffset));
+            Log.e(TAG, MessageFormat.format("right:{0} px", getWidth()));
+            Log.e(TAG, MessageFormat.format("bottom:{0} px", getHeight() - mYOffset));
             canvas.drawRect(0, getHeight() - mLineHeight - mYOffset, getWidth(), getHeight() - mYOffset, mPaint);
         }
+        //endregion
         mPath.reset();
+
+        //region 画三角形
         if (mReverse) {
             mPath.moveTo(mAnchorX - mTriangleWidth / 2, getHeight() - mYOffset - mTriangleHeight);
             mPath.lineTo(mAnchorX, getHeight() - mYOffset);
@@ -65,12 +89,17 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
             mPath.lineTo(mAnchorX, getHeight() - mTriangleHeight - mYOffset);
             mPath.lineTo(mAnchorX + mTriangleWidth / 2, getHeight() - mYOffset);
         }
-        mPath.close();
+        mPath.close();//起始点闭合
+        //endregion
         canvas.drawPath(mPath, mPaint);
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Log.i(TAG, MessageFormat.format("position:{0}", position));
+        Log.i(TAG, MessageFormat.format("positionOffset:{0}", positionOffset));
+        Log.i(TAG, MessageFormat.format("positionOffsetPixels:{0}", positionOffsetPixels));
+
         if (mPositionDataList == null || mPositionDataList.isEmpty()) {
             return;
         }
@@ -84,7 +113,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
         mAnchorX = leftX + (rightX - leftX) * mStartInterpolator.getInterpolation(positionOffset);
 
-        invalidate();
+        invalidate();//触发onDraw方法
     }
 
     @Override
@@ -100,6 +129,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
         mPositionDataList = dataList;
     }
 
+    //region getter and setter
     public int getLineHeight() {
         return mLineHeight;
     }
@@ -158,4 +188,5 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
     public void setYOffset(float yOffset) {
         mYOffset = yOffset;
     }
+    //endregion
 }

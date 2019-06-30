@@ -7,13 +7,13 @@ package net.lucode.hackware.magicindicator.abs;
  */
 public interface IPagerNavigator {
 
-    ///////////////////////// ViewPager的3个回调
+    //region ViewPager的3个回调
     void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
     void onPageSelected(int position);
 
     void onPageScrollStateChanged(int state);
-    /////////////////////////
+    //endregion
 
     /**
      * 当IPagerNavigator被添加到MagicIndicator时调用
