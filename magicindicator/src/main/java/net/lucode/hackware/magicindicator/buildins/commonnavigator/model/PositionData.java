@@ -38,4 +38,18 @@ public class PositionData {
     public int verticalCenter() {
         return mTop + height() / 2;
     }
+
+    @Override
+    public String toString() {
+        return "PositionData{" +
+                "mLeft=" + mLeft +
+                ", mTop=" + mTop +
+                ", mRight=" + mRight +
+                ", mBottom=" + mBottom +
+                ", mContentLeft=" + mContentLeft +
+                ", mContentTop=" + mContentTop +
+                ", mContentRight=" + mContentRight +
+                ", mContentBottom=" + mContentBottom +
+                '}';
+    }
 }

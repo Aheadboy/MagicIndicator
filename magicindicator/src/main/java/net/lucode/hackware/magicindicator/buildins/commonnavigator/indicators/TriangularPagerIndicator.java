@@ -96,9 +96,9 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.i(TAG, MessageFormat.format("position:{0}", position));
-        Log.i(TAG, MessageFormat.format("positionOffset:{0}", positionOffset));
-        Log.i(TAG, MessageFormat.format("positionOffsetPixels:{0}", positionOffsetPixels));
+        Log.e(TAG, MessageFormat.format("position:{0}", position));
+        Log.e(TAG, MessageFormat.format("positionOffset:{0}", positionOffset));
+        Log.e(TAG, MessageFormat.format("positionOffsetPixels:{0}", positionOffsetPixels));
 
         if (mPositionDataList == null || mPositionDataList.isEmpty()) {
             return;
@@ -112,7 +112,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
         float rightX = next.mLeft + (next.mRight - next.mLeft) / 2;
 
         mAnchorX = leftX + (rightX - leftX) * mStartInterpolator.getInterpolation(positionOffset);
-
+        Log.e(TAG, MessageFormat.format("current:{0};next:{1};leftX:{2};rightX:{3};", current.toString(),next.toString(),leftX,rightX));
         invalidate();//触发onDraw方法
     }
 
