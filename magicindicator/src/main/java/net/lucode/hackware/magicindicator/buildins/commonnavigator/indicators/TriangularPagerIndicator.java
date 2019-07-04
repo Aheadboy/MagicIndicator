@@ -30,7 +30,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
     private int mLineColor;
     private int mTriangleHeight;
     private int mTriangleWidth;
-    private boolean mReverse;
+    private boolean mReverse;//倒三角
     private float mYOffset;
 
     private Path mPath = new Path();
@@ -56,6 +56,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
         mPaint.setColor(mLineColor);
 
+        Log.i(TAG, MessageFormat.format("mReverse:{0}",mReverse));
 
         //region 画底部的线。
         if (mReverse) {
