@@ -86,9 +86,9 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
             mPath.lineTo(mAnchorX, getHeight() - mYOffset);
             mPath.lineTo(mAnchorX + mTriangleWidth / 2, getHeight() - mYOffset - mTriangleHeight);
         } else {
-            mPath.moveTo(mAnchorX - mTriangleWidth / 2, getHeight() - mYOffset);
-            mPath.lineTo(mAnchorX, getHeight() - mTriangleHeight - mYOffset);
-            mPath.lineTo(mAnchorX + mTriangleWidth / 2, getHeight() - mYOffset);
+            mPath.moveTo(mAnchorX - mTriangleWidth / 2, getHeight() - mYOffset);//三角形的左下点
+            mPath.lineTo(mAnchorX, getHeight() - mTriangleHeight - mYOffset);//三角形的上顶点
+            mPath.lineTo(mAnchorX + mTriangleWidth / 2, getHeight() - mYOffset);//三角形的右下角
         }
         mPath.close();//起始点闭合
         //endregion
